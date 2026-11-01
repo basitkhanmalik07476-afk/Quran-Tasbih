@@ -1,0 +1,23 @@
+Tasbih app ko mobile par install karna
+
+Yeh installable web app (PWA) hai, Android APK nahi.
+
+1. ZIP file extract karein.
+2. Andar ke tamam app files ko HTTPS support karne wali web hosting par upload karein. index.html website ke root folder mein hona chahiye.
+3. Apne mobile par us website ka HTTPS link kholein.
+4. Android: Chrome menu se "Install app" ya "Add to Home screen" chunein.
+   iPhone: Safari mein Share button dabayein, phir "Add to Home Screen" chunein.
+5. Pehli dafa install/open karne ke baad app offline bhi chal sakti hai.
+
+Ab app mein mukammal Arabic Quran (114 surah, 6,236 ayat), tamam 30 sipare,
+Fateh Muhammad Jalandhry ka Urdu tarjuma, surah/sipara navigation, Arabic ayah
+search, reading progress/bookmark, Quran recitation player with a 114-surah
+playlist, aur Tasbih counter shamil hain. Qur'an Player, Qur'an Majeed, aur
+Tasbih alag sections mein hain. Quran files pehli dafa load hone ke baad
+offline cache mein save hoti hain. Audio recitation internet se stream hoti
+hai aur offline play nahi hoti.
+
+Urdu tarjuma Tanzil ke mutabiq sirf non-commercial istemal ke liye hai.
+Commercial distribution se pehle translator/publisher se permission lein.
+
+Sirf ZIP ko mobile par download karne se app install nahi hoti; PWA install ke liye HTTPS link zaroori hai.

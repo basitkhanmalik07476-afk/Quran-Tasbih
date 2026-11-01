@@ -1,0 +1,47 @@
+QURAN ARABIC TEXT ATTRIBUTION AND TERMS
+
+The complete Arabic Quran text in data/quran-uthmani.txt is reproduced
+verbatim from the Tanzil Project Uthmani download:
+https://tanzil.net/download/
+
+Tanzil Quran Text
+Copyright (C) 2007-2021 Tanzil Project
+License: Creative Commons Attribution 3.0
+
+The text must not be changed. It may be copied and used in applications
+provided the Tanzil Project is clearly identified and a link to tanzil.net
+is included so users can track updates. The original Tanzil copyright and
+terms block is retained at the end of the text file.
+
+Tanzil text license:
+https://tanzil.net/docs/Text_License
+
+Surah metadata (names, transliterations, translations of names, ayah counts,
+and revelation types) is from AlQuran Cloud:
+https://alquran.cloud/api
+
+The Urdu translation in data/translation-ur-jalandhry.txt is Fateh Muhammad
+Jalandhry's translation, reproduced verbatim from:
+https://tanzil.net/trans/ur.jalandhry
+
+Tanzil states that translations on its translations page are for
+non-commercial purposes only. Commercial use requires permission from the
+translator or publisher. This app includes the translation for non-commercial
+use only; obtain any required permission before commercial distribution.
+Tanzil translations page and terms:
+https://tanzil.net/trans/
+
+The 30 Juz (Sipara) starting points are from AlQuran Cloud Quran metadata:
+https://api.alquran.cloud/v1/meta
+
+Quran recitation audio is streamed on demand from the AlQuran Cloud CDN
+(islamic.network), using Mishary Rashid Alafasy's Murattal recitation:
+https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/
+
+The bundled Quran text contains 6,236 ayah entries in the widely used Kufan
+verse-numbering count. Other traditional verse-counting systems differ in
+some verse divisions. The often-quoted number 6,666 is a popular figure; this
+app follows the 6,236-entry count and does not omit Quran text.
+
+Translations are interpretations of the meanings and are not a replacement
+for the Arabic Quran. The translation text is not modified in this app.

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ur">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta name="description" content="Read the complete Quran, listen to recitation, and keep your daily dhikr with Tasbih.">
+  <title>Quran &amp; Tasbih</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Quran and Tasbih home">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span>QURAN &amp; TASBIH</span>
+      </a>
+      <button class="icon-button" id="soundButton" type="button" aria-label="Turn vibration on" title="Vibration off">
+        <svg class="vibration-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="7" y="3" width="10" height="18" rx="3"></rect>
+          <path d="M4 8v8M20 8v8M2 10v4M22 10v4"></path>
+        </svg>
+      </button>
+    </header>
+
+    <nav class="main-tabs" role="tablist" aria-label="Main sections">
+      <button class="main-tab is-active" id="playerTab" type="button" role="tab" aria-controls="playerView" aria-selected="true">
+        <span class="tab-title">Qur'an Player</span><span class="tab-subtitle" lang="ur" dir="rtl">آڈیو</span>
+      </button>
+      <button class="main-tab" id="quranTab" type="button" role="tab" aria-controls="quranView" aria-selected="false">
+        <span class="tab-title">Qur'an Majeed</span><span class="tab-subtitle" lang="ur" dir="rtl">قرآن</span>
+      </button>
+      <button class="main-tab" id="tasbihTab" type="button" role="tab" aria-controls="tasbihView" aria-selected="false">
+        <span class="tab-title">Tasbih</span><span class="tab-subtitle" lang="ur" dir="rtl">تسبیح</span>
+      </button>
+    </nav>
+
+    <section class="welcome" id="welcome" hidden>
+      <p class="eyebrow">A MOMENT OF REMEMBRANCE</p>
+      <h1>Your daily <span>dhikr.</span></h1>
+    </section>
+
+    <section id="tasbihView" role="tabpanel" aria-labelledby="tasbihTab" hidden>
+    <section class="dhikr-card" aria-label="Choose your dhikr">
+      <label for="dhikrSelect">TODAY'S DHIKR</label>
+      <div class="select-wrap">
+        <select id="dhikrSelect" aria-label="Select a dhikr">
+          <optgroup label="Tasbih &amp; zikr">
+            <option value="سُبْحَانَ اللّٰهِ">سُبْحَانَ اللّٰهِ</option>
+            <option value="الْحَمْدُ لِلّٰهِ">الْحَمْدُ لِلّٰهِ</option>
+            <option value="اللّٰهُ أَكْبَرُ">اللّٰهُ أَكْبَرُ</option>
+            <option value="أَسْتَغْفِرُ اللّٰهَ">أَسْتَغْفِرُ اللّٰهَ</option>
+            <option value="لَا إِلٰهَ إِلَّا اللّٰهُ">لَا إِلٰهَ إِلَّا اللّٰهُ</option>
+            <option value="سُبْحَانَ اللّٰهِ وَبِحَمْدِهِ">سُبْحَانَ اللّٰهِ وَبِحَمْدِهِ</option>
+            <option value="سُبْحَانَ اللّٰهِ الْعَظِيمِ وَبِحَمْدِهِ">سُبْحَانَ اللّٰهِ الْعَظِيمِ وَبِحَمْدِهِ</option>
+            <option value="لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ</option>
+            <option value="لَا إِلٰهَ إِلَّا اللّٰهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ">کلمۂ توحید (مکمل)</option>
+          </optgroup>
+          <optgroup label="Durood">
+            <option value="صَلَّى اللّٰهُ عَلَيْهِ وَسَلَّمَ">دُرُود شریف — صَلَّى اللّٰهُ عَلَيْهِ وَسَلَّمَ</option>
+            <option value="اللّٰهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ، اللّٰهُمَّ بَارِكْ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ">دُرُودِ اِبْرَاہِیم (مکمل)</option>
+          </optgroup>
+          <optgroup label="Du'a">
+            <option value="اللّٰهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي">شبِ قدر کی دعا</option>
+            <option value="رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ">دنیا و آخرت کی بھلائی کی دعا</option>
+            <option value="رَبِّ زِدْنِي عِلْمًا">علم میں اضافے کی دعا</option>
+            <option value="حَسْبِيَ اللّٰهُ لَا إِلٰهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ">اللہ پر بھروسے کی دعا</option>
+            <option value="اللّٰهُمَّ أَنْتَ رَبِّي لَا إِلٰهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَىٰ عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي، فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ">سید الاستغفار (مکمل)</option>
+          </optgroup>
+        </select>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5"></path></svg>
+      </div>
+    </section>
+
+    <section class="counter-area" aria-label="Tasbih counter">
+      <div class="progress-ring" id="progressRing">
+        <div class="counter-content">
+          <p class="counter-label">YOUR COUNT</p>
+          <output id="count" aria-live="polite">0</output>
+          <p class="dhikr-arabic" id="dhikrDisplay" lang="ar" dir="rtl">سُبْحَانَ اللّٰهِ</p>
+          <p class="goal-copy"><span id="remaining">33</span> to your goal</p>
+        </div>
+      </div>
+      <button class="count-button" id="countButton" type="button" aria-label="Add one to your tasbih count">
+        <span class="button-inner">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+          <span>Tap to count</span>
+        </span>
+      </button>
+      <div class="counter-actions">
+        <button class="text-button" id="resetButton" type="button">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10a6.5 6.5 0 1 0 1.8-4.5L3.5 7.5M3.5 3.5v4h4"></path></svg>
+          Reset count
+        </button>
+      </div>
+    </section>
+
+    <section class="goal-card">
+      <div>
+        <p class="goal-title">Your daily goal</p>
+        <p class="goal-subtitle">A little remembrance goes a long way.</p>
+      </div>
+      <label class="goal-picker">
+        <span class="visually-hidden">Choose your daily goal</span>
+        <select id="goalSelect" aria-label="Choose your daily goal">
+          <option value="33">33</option>
+          <option value="99">99</option>
+          <option value="100">100</option>
+          <option value="custom">Custom</option>
+        </select>
+        <span class="goal-chevron" aria-hidden="true">⌄</span>
+      </label>
+    </section>
+
+    <section class="install-card" aria-label="Install Tasbih on your phone">
+      <div>
+        <p class="goal-title">Use Tasbih on your phone</p>
+        <p class="goal-subtitle">Open this app link on your phone to install it.</p>
+      </div>
+      <button class="install-button" id="installButton" type="button">Install</button>
+      <p class="install-help">Android: open in Chrome and tap Install. iPhone: open in Safari, tap Share, then “Add to Home Screen”. An HTTPS app link is required.</p>
+    </section>
+    </section>
+
+    <section class="player-view" id="playerView" role="tabpanel" aria-labelledby="playerTab" aria-label="Quran audio player">
+      <div class="quran-heading">
+        <p class="eyebrow">LISTEN &amp; REFLECT</p>
+        <h1>Qur'an <span>Player.</span></h1>
+        <p class="quran-intro">Listen to all 114 surahs · Mishary Rashid Alafasy</p>
+      </div>
+      <section class="quran-player" aria-label="Quran audio player">
+        <audio id="quranAudio" preload="none" hidden></audio>
+        <div class="player-heading">
+          <div>
+            <p class="player-kicker">NOW PLAYING</p>
+            <p class="player-track-title" id="playerTrackTitle">Al-Faatiha</p>
+            <p class="player-track-arabic" id="playerTrackArabic" lang="ar" dir="rtl">سُورَةُ ٱلْفَاتِحَةِ</p>
+            <p class="player-reciter">Mishary Rashid Alafasy · Murattal</p>
+          </div>
+          <span class="player-live" id="playerStatus" role="status">Ready to play</span>
+        </div>
+        <div class="player-seek">
+          <label class="visually-hidden" for="playerSeek">Seek through this surah</label>
+          <input id="playerSeek" type="range" min="0" max="1000" value="0" aria-label="Seek through this surah">
+          <div class="player-time"><span id="playerCurrentTime">0:00</span><span id="playerDuration">0:00</span></div>
+        </div>
+        <div class="player-controls">
+          <button class="player-icon-button" id="shuffleButton" type="button" aria-label="Shuffle off" title="Shuffle off">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg>
+          </button>
+          <button class="player-icon-button" id="previousTrackButton" type="button" aria-label="Previous surah" title="Previous surah">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 6l-9 6 9 6z"></path></svg>
+          </button>
+          <button class="player-icon-button player-skip-button" id="rewindButton" type="button" aria-label="Back 10 seconds" title="Back 10 seconds">−10</button>
+          <button class="player-play-button" id="playPauseButton" type="button" aria-label="Play Al-Faatiha" title="Play">
+            <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7z"></path></svg>
+            <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"></path></svg>
+          </button>
+          <button class="player-icon-button player-skip-button" id="forwardButton" type="button" aria-label="Forward 10 seconds" title="Forward 10 seconds">+10</button>
+          <button class="player-icon-button" id="nextTrackButton" type="button" aria-label="Next surah" title="Next surah">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 6l9 6-9 6z"></path></svg>
+          </button>
+          <button class="player-icon-button" id="repeatButton" type="button" aria-label="Repeat off" title="Repeat off">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"></path></svg>
+            <span class="repeat-one-badge" id="repeatOneBadge" hidden>1</span>
+          </button>
+        </div>
+        <div class="player-options">
+          <label class="player-speed">Speed
+            <select id="playbackRate" aria-label="Playback speed">
+              <option value="0.75">0.75×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.25">1.25×</option>
+              <option value="1.5">1.5×</option>
+              <option value="2">2×</option>
+            </select>
+          </label>
+          <label class="player-volume">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"></path></svg>
+            <span class="visually-hidden">Volume</span>
+            <input id="playerVolume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+          </label>
+        </div>
+        <details class="player-playlist">
+          <summary><span>Surah playlist</span><span id="playlistCount">114 surahs</span></summary>
+          <div class="playlist-items" id="playlistItems" role="listbox" aria-label="Choose a surah to play"></div>
+        </details>
+        <p class="player-attribution">Recitation by Mishary Rashid Alafasy · Audio streamed from the AlQuran Cloud CDN.</p>
+      </section>
+      <p class="player-offline-note">Audio streaming requires an internet connection.</p>
+    </section>
+
+    <section class="quran-view" id="quranView" role="tabpanel" aria-labelledby="quranTab" hidden aria-label="Quran reader">
+      <div class="quran-heading">
+        <p class="eyebrow">THE NOBLE QUR'AN</p>
+        <h1>Read &amp; <span>reflect.</span></h1>
+        <p class="quran-intro">Complete Quran · 114 Surahs · 30 Siparay</p>
+        <p class="quran-note" lang="ur" dir="rtl">قرآن کا مکمل متن شامل ہے۔ اس ایپ میں معروف کُوفی شمار کے مطابق 6,236 آیات ہیں۔ 6,666 کا عدد بھی مشہور ہے، مگر اس سے قرآن کا متن کم یا زیادہ نہیں ہوتا۔</p>
+      </div>
+        <p class="reader-status" id="readerStatus" role="status">Loading the complete Quran…</p>
+        <button class="resume-button" id="resumeReading" type="button" hidden>Continue from your saved place</button>
+      <label class="reader-label" for="surahSelect">CHOOSE A SURAH OR SIPARA</label>
+      <div class="reader-controls">
+        <select id="surahSelect" aria-label="Choose a surah or sipara"></select>
+        <button class="reader-nav-button" id="previousSurah" type="button" aria-label="Previous surah or sipara">‹</button>
+        <button class="reader-nav-button" id="nextSurah" type="button" aria-label="Next surah or sipara">›</button>
+      </div>
+      <label class="translation-toggle">
+        <input id="translationToggle" type="checkbox" checked>
+        <span>اردو ترجمہ دکھائیں</span>
+      </label>
+      <form class="quran-search" id="quranSearchForm" role="search">
+        <label class="visually-hidden" for="quranSearch">Search the Quran in Arabic</label>
+        <input id="quranSearch" type="search" placeholder="Search Arabic ayahs…" autocomplete="off">
+        <button type="submit">Search</button>
+      </form>
+      <p class="search-hint">Search Arabic text, or choose any surah or sipara.</p>
+      <div class="search-results" id="searchResults" aria-live="polite" hidden></div>
+      <div class="surah-heading" id="surahHeading"></div>
+      <div class="reader-progress">
+        <div><span id="progressLabel">Reading progress</span><strong id="progressPercent">0%</strong></div>
+        <progress id="quranProgress" max="6236" value="0" aria-label="Quran reading progress"></progress>
+        <span class="progress-detail" id="progressDetail">0 of 6,236 ayahs saved</span>
+      </div>
+      <div class="ayah-list" id="ayahList" aria-live="polite"></div>
+    </section>
+
+    <footer>Take a breath. Begin again. <span aria-hidden="true">✳</span></footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
