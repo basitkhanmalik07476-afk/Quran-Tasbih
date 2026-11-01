@@ -200,6 +200,9 @@ h1 span { color: var(--green); font-style: italic; }
 .search-empty { margin: 0; padding: 14px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); font-size: 12px; text-align: center; }
 footer { padding-top: 17px; color: #9a9a8f; text-align: center; font-family: "Playfair Display", Georgia, serif; font-size: 12px; font-style: italic; }
 footer span { padding-left: 4px; color: var(--gold); font-style: normal; }
+.footer-credit { padding-top: 5px; font-style: normal; }
+.footer-credit a { color: var(--green); text-decoration: underline; text-underline-offset: 2px; }
+.footer-credit a:hover { color: var(--gold); }
 .toast { position: fixed; right: 20px; bottom: max(22px, env(safe-area-inset-bottom)); left: 20px; width: fit-content; max-width: calc(100% - 40px); margin: 0 auto; padding: 11px 16px; border-radius: 999px; background: #263a30; color: #fff; font-size: 12px; opacity: 0; transform: translateY(8px); transition: opacity .2s, transform .2s; pointer-events: none; }
 .toast.is-visible { opacity: 1; transform: translateY(0); }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
