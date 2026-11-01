@@ -1,4 +1,4 @@
-const CACHE_NAME = "quran-tasbih-app-v18";
+const CACHE_NAME = "quran-tasbih-app-v21";
 const APP_FILES = [
   "./",
   "./index.html",

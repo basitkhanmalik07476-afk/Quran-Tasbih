@@ -26,6 +26,7 @@ const quranProgress = document.querySelector("#quranProgress");
 const progressPercent = document.querySelector("#progressPercent");
 const progressDetail = document.querySelector("#progressDetail");
 const quranAudio = document.querySelector("#quranAudio");
+const nextAudioPreloader = document.createElement("audio");
 const playerTrackTitle = document.querySelector("#playerTrackTitle");
 const playerTrackArabic = document.querySelector("#playerTrackArabic");
 const playerStatus = document.querySelector("#playerStatus");
@@ -40,6 +41,39 @@ const playlistItems = document.querySelector("#playlistItems");
 const playbackRate = document.querySelector("#playbackRate");
 const playerVolume = document.querySelector("#playerVolume");
 
+const juzNames = [
+  "Alif Lam Meem",
+  "Sayaqool",
+  "Tilkal Rusul",
+  "Lan Tana Loo",
+  "Wal Mohsanat",
+  "La Yuhibbullah",
+  "Wa Iza Samiu",
+  "Wa Lau Annana",
+  "Qalal Malao",
+  "Wa A'lamu",
+  "Yatazeroon",
+  "Wa Mamin Da'abat",
+  "Wa Ma Ubrioo",
+  "Rubama",
+  "Subhanallazi",
+  "Qal Alam",
+  "Iqtaraba",
+  "Qad Aflaha",
+  "Wa Qalallazina",
+  "Amman Khalaq",
+  "Utlu Ma Oohi",
+  "Wa Manyaqnut",
+  "Wa Mali",
+  "Faman Azlam",
+  "Elahe Yuruddo",
+  "Ha Meem",
+  "Qala Fama Khatbukum",
+  "Qad Sami Allah",
+  "Tabarakallazi",
+  "Amma"
+];
+
 let state = loadState();
 let toastTimer;
 let installPrompt;
@@ -47,6 +81,8 @@ let quranData;
 let quranLoadPromise;
 let readerState = loadReaderState();
 let audioState = loadAudioState();
+let queuedNextSurah = null;
+nextAudioPreloader.preload = "metadata";
 
 function loadAudioState() {
   try {
@@ -279,7 +315,7 @@ function populateSurahSelect() {
   for (const juz of quranData.juzs) {
     const option = document.createElement("option");
     option.value = `juz:${juz.number}`;
-    option.textContent = `سپارہ ${juz.number} · Juz ${juz.number}`;
+    option.textContent = `سپارہ ${juz.number} · ${juzNames[juz.number - 1]} · Juz ${juz.number}`;
     juzGroup.append(option);
   }
   fragment.append(juzGroup);
@@ -365,7 +401,37 @@ function selectAudioTrack(surahNumber, shouldPlay = false) {
   }
   updatePlaylistSelection();
   if (changed) saveAudioState();
+  preloadNextTrack();
   if (shouldPlay) playCurrentTrack();
+}
+
+function preloadNextTrack() {
+  if (!quranData || audioState.repeat === 2) {
+    queuedNextSurah = null;
+    nextAudioPreloader.removeAttribute("src");
+    nextAudioPreloader.load();
+    return;
+  }
+  const nextSurah = chooseNextTrack();
+  queuedNextSurah = nextSurah;
+  const source = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${nextSurah}.mp3`;
+  if (nextAudioPreloader.src !== source) {
+    nextAudioPreloader.src = source;
+    nextAudioPreloader.load();
+  }
+}
+
+function chooseNextTrack() {
+  let nextSurah;
+  if (audioState.shuffle) {
+    nextSurah = audioState.surah;
+    while (nextSurah === audioState.surah && quranData.surahs.length > 1) {
+      nextSurah = Math.floor(Math.random() * quranData.surahs.length) + 1;
+    }
+  } else {
+    nextSurah = audioState.surah === 114 ? 1 : audioState.surah + 1;
+  }
+  return nextSurah;
 }
 
 async function playCurrentTrack() {
@@ -391,15 +457,7 @@ function setPlaybackState(isPlaying) {
 
 function playNextTrack() {
   if (!quranData) return;
-  let nextSurah;
-  if (audioState.shuffle) {
-    nextSurah = audioState.surah;
-    while (nextSurah === audioState.surah && quranData.surahs.length > 1) {
-      nextSurah = Math.floor(Math.random() * quranData.surahs.length) + 1;
-    }
-  } else {
-    nextSurah = audioState.surah === 114 ? 1 : audioState.surah + 1;
-  }
+  const nextSurah = queuedNextSurah ?? chooseNextTrack();
   selectAudioTrack(nextSurah, true);
 }
 
@@ -435,7 +493,7 @@ function renderReader() {
     surahSelect.value = `juz:${juz.number}`;
     ayahs = quranData.ayahs.filter(ayah => ayah.juz === juz.number);
     title.append(
-      createElement("h2", "", `Sipara ${juz.number} · Juz ${juz.number}`),
+      createElement("h2", "", `Sipara ${juz.number} · ${juzNames[juz.number - 1]} · Juz ${juz.number}`),
       createElement("p", "surah-translation", `${ayahs.length} ayahs · ${startSurah.englishName} ${juz.start.ayah} — ${endSurah.englishName} ${juz.end.ayah}`)
     );
     heading.append(title, createElement("p", "surah-arabic-name", `پارہ ${juz.number}`));
@@ -484,14 +542,6 @@ function renderReader() {
     fragment.append(card);
   }
   ayahList.replaceChildren(fragment);
-}
-
-function syncAudioToReader() {
-  if (!quranData) return;
-  const surah = readerState.mode === "juz"
-    ? quranData.juzs[readerState.juz - 1].start.surah
-    : readerState.surah;
-  selectAudioTrack(surah);
 }
 
 function updateReadingProgress() {
@@ -673,6 +723,7 @@ document.querySelector("#forwardButton").addEventListener("click", () => {
 
 shuffleButton.addEventListener("click", () => {
   audioState.shuffle = !audioState.shuffle;
+  preloadNextTrack();
   shuffleButton.classList.toggle("is-active", audioState.shuffle);
   shuffleButton.setAttribute("aria-label", `Shuffle ${audioState.shuffle ? "on" : "off"}`);
   shuffleButton.title = `Shuffle ${audioState.shuffle ? "on" : "off"}`;
@@ -681,6 +732,7 @@ shuffleButton.addEventListener("click", () => {
 
 repeatButton.addEventListener("click", () => {
   audioState.repeat = (audioState.repeat + 1) % 3;
+  preloadNextTrack();
   const repeatLabel = ["off", "all", "one"][audioState.repeat];
   repeatButton.classList.toggle("is-active", audioState.repeat !== 0);
   repeatButton.setAttribute("aria-label", `Repeat ${repeatLabel}`);
@@ -768,7 +820,6 @@ surahSelect.addEventListener("change", () => {
   if (mode === "juz") readerState.juz = Number(number);
   else readerState.surah = Number(number);
   saveReaderState();
-  syncAudioToReader();
   renderReader();
 });
 
@@ -781,7 +832,6 @@ document.querySelector("#previousSurah").addEventListener("click", () => {
     return;
   }
   saveReaderState();
-  syncAudioToReader();
   renderReader();
 });
 
@@ -794,7 +844,6 @@ document.querySelector("#nextSurah").addEventListener("click", () => {
     return;
   }
   saveReaderState();
-  syncAudioToReader();
   renderReader();
 });
 
@@ -818,7 +867,6 @@ searchResults.addEventListener("click", event => {
   readerState.mode = "surah";
   quranSearch.value = "";
   saveReaderState();
-  syncAudioToReader();
   renderReader();
   requestAnimationFrame(() => {
     const ayah = ayahList.querySelector(`[data-ayah-key="${readerState.surah}:${Number(result.dataset.ayah)}"]`);
@@ -844,7 +892,7 @@ resumeReading.addEventListener("click", () => {
   if (!readerState.lastRead || !quranData) return;
   readerState.surah = readerState.lastRead.surah;
   readerState.mode = "surah";
-  syncAudioToReader();
+  saveReaderState();
   renderReader();
   requestAnimationFrame(() => {
     const ayah = ayahList.querySelector(`[data-ayah-key="${readerState.lastRead.surah}:${readerState.lastRead.ayah}"]`);
